@@ -16,7 +16,7 @@ export const productById=async (context: any) => {
     try {
         const id :string = context.params.id;
         let data=await products.findOne({ _id: { "$oid": id } });
-        context.response.body={ data: data };
+        context.response.body={ success:true, data: data };
         context.response.status=200;
     }
     catch (error) {
@@ -28,7 +28,7 @@ export const addProduct=async (context: any) => {
     try {
         let body: any = await context.request.body();
         const id = await products.insertOne(body.value);    
-        context.response.body={ id: id };
+        context.response.body={success:true, id: id };
         context.response.status=200;
     }
     catch (error) {
@@ -41,7 +41,7 @@ export const updateProduct=async (context: any) => {
         const id :string = context.params.id;
         let body: any=await context.request.body();
         const data=await products.updateOne({ _id: { "$oid": id } }, { $set: body.value });   
-        context.response.body={ data: data };
+        context.response.body={ success:true, data: data };
         context.response.status=200;
     }
     catch (error) {
@@ -53,7 +53,7 @@ export const deleteProduct=async (context: any) => {
     try {
         const id :string = context.params.id;
         const data = await products.deleteOne({_id: {"$oid": id}});  
-        context.response.body={ data: data };
+        context.response.body={ success:true,  data: data };
         context.response.status=200;
     }
     catch (error) {
